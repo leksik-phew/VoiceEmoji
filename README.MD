@@ -1,7 +1,7 @@
 # VoiceEmoji
 
 A project for analyzing the emotional state based on audio recordings and generating psycho-emotional maps.  
-** Supported formats**: MP3, OGG, WAV.
+**Supported formats**: MP3, OGG, WAV.
 
 <img src="https://img.shields.io/badge/Python-3.8.10-blue" alt="Python Version"> <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging-Face-yellow?style=plastic">
 
@@ -20,14 +20,14 @@ A project for analyzing the emotional state based on audio recordings and genera
    - PCA analysis for interpreting psychological patterns.
 
 ## Screenshots
-/ Emotional map | Mental Map |
+| Emotional map | Mental Map |
 |----------------------|--------------------|
 | <img src="emotion_card.png" width="300"> | <img src="mental_map.png" width="300"> |
 
 
 ## Models used
 [speech-emotion-recognition-with-openai-whisper-large-v3](https://huggingface.co/firdhokk/speech-emotion-recognition-with-openai-whisper-large-v3) — классификация эмоций.<br/>
-[bert-base-uncased] (https://huggingface.co/google-bert/bert-base-uncased) — vector representation of the text.
+[bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) — vector representation of the text.
 
 ## Possible errors
 - Error when processing audio: Make sure that the file is not corrupted and corresponds to the supported formats.
@@ -35,7 +35,7 @@ A project for analyzing the emotional state based on audio recordings and genera
 
 ## Requirements
 - Python 3.8.10
--Dependencies:  
+- Dependencies:  
 ```bash
   pip install -r requirements.txt
 ```
