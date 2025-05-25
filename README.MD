@@ -6,7 +6,7 @@ A project for analyzing the emotional state based on audio recordings and genera
 <img src="https://img.shields.io/badge/Python-3.8.10-blue" alt="Python Version"> <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging-Face-yellow?style=plastic">
 
 ## Features
-- Audio analysis using the * * Whisper-large-v3 * * model for emotion recognition.
+- Audio analysis using the **Whisper-large-v3** model for emotion recognition.
 - Visualization of results:
 - * * Emotional map** (t-SNE) — shows the distribution of emotions in space.
   - **Mental Map** (PCA) — displays psychological characteristics.
