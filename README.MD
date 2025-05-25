@@ -24,6 +24,15 @@
 |----------------------|--------------------|
 | <img src="emotion_card.png" width="300"> | <img src="mental_map.png" width="300"> |
 
+
+## Используемые модели
+[speech-emotion-recognition-with-openai-whisper-large-v3](https://huggingface.co/firdhokk/speech-emotion-recognition-with-openai-whisper-large-v3) — классификация эмоций.<br/>
+[bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) — векторное представление текста.
+
+## Возможные ошибки
+- Ошибка при обработке аудио: Убедитесь, что файл не поврежден и соответствует поддерживаемым форматам.
+- Проблемы с зависимостями на Windows: Установите Microsoft Visual C++ Build Tools.
+
 ## Требования
 - Python 3.8.10
 - Зависимости:  
@@ -39,8 +48,4 @@ pip install -r requirements.txt
 python main.py
 ```
 
-## Поддержка моделей
-- Используемые модели:
-
-[speech-emotion-recognition-with-openai-whisper-large-v3](https://huggingface.co/firdhokk/speech-emotion-recognition-with-openai-whisper-large-v3) — классификация эмоций.<br/>
-[bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) — векторное представление текста.
+## Обратная связь: tg @bez_organov
