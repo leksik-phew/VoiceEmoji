@@ -4,7 +4,8 @@
 **Поддерживаемые форматы**: MP3, OGG, WAV.
 
 <img src="https://img.shields.io/badge/Python-3.8.10-blue" alt="Python Version"> 
-[![Hugging Face Models](https://img.shields.io/badge/Hugging%20Face-Models-orange)](https://huggingface.co/)
+![Hugging Face](https://img.shields.io/badge/hugging-face-yellow?style=plastic)
+
 
 ## Особенности
 - Анализ аудио с использованием модели **Whisper-large-v3** для распознавания эмоций.
