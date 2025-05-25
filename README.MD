@@ -13,7 +13,7 @@ A project for analyzing the emotional state based on audio recordings and genera
 - Intuitive graphical interface (GUI) based on Tkinter.
 
 ## How it works
- <img src="scheme.png" width="600">
+ <img src="scheme.png" width="800">
 1. Audio is divided into segments of 10 seconds each.
 2. For each segment, an emotion is determined using a pre-trained model.
 3. Based on the received emotions, we build:
