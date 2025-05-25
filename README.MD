@@ -17,7 +17,7 @@ A project for analyzing the emotional state based on audio recordings and genera
 2. For each segment, an emotion is determined using a pre-trained model.
 3. Based on the received emotions, we build:
 - 2D visualization using t-SNE to group similar states.
-   - PCA analysis for interpreting psychological patterns.
+- PCA analysis for interpreting psychological patterns.
 
 ## Screenshots
 | Emotional map | Mental Map |
