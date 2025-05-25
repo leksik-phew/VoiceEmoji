@@ -1,8 +1,8 @@
 # VoiceEmoji
 ## This is a project, which takes from person audio and proceed it into a psychological and emotional cards. <br/>
-Support *.mp3, *.ogg, *.wav files
-## 
-### Written on Python 3.8.10
+Support *.mp3, *.ogg, *.wav files <br/>
+Use firdhokk/speech-emotion-recognition-with-openai-whisper-large-v3 and bert-base-uncased free models from Hugging Face. <br/>
+Written on Python 3.8.10
 
 ## Usage
 ```bash
