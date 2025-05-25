@@ -1,46 +1,46 @@
 # VoiceEmoji
 
-Проект для анализа эмоционального состояния по аудиозаписи и генерации психоэмоциональных карт.  
-**Поддерживаемые форматы**: MP3, OGG, WAV.
+A project for analyzing the emotional state based on audio recordings and generating psycho-emotional maps.  
+** Supported formats**: MP3, OGG, WAV.
 
 <img src="https://img.shields.io/badge/Python-3.8.10-blue" alt="Python Version"> <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging-Face-yellow?style=plastic">
 
-## Особенности
-- Анализ аудио с использованием модели **Whisper-large-v3** для распознавания эмоций.
-- Визуализация результатов:
-  - **Эмоциональная карта** (t-SNE) — показывает распределение эмоций в пространстве.
-  - **Психическая карта** (PCA) — отображает психологические характеристики.
-- Интуитивный графический интерфейс (GUI) на базе Tkinter.
+## Features
+- Audio analysis using the * * Whisper-large-v3 * * model for emotion recognition.
+- Visualization of results:
+- * * Emotional map** (t-SNE) — shows the distribution of emotions in space.
+  - **Mental Map** (PCA) — displays psychological characteristics.
+- Intuitive graphical interface (GUI) based on Tkinter.
 
-## Как это работает
-1. Аудио разбивается на сегменты по 10 секунд.
-2. Для каждого сегмента определяется эмоция с помощью предобученной модели.
-3. На основе полученных эмоций строятся:
-   - 2D-визуализация с использованием t-SNE для группировки схожих состояний.
-   - PCA-анализ для интерпретации психологических паттернов.
+## How it works
+1. Audio is divided into segments of 10 seconds each.
+2. For each segment, an emotion is determined using a pre-trained model.
+3. Based on the received emotions, we build:
+- 2D visualization using t-SNE to group similar states.
+   - PCA analysis for interpreting psychological patterns.
 
-## Скриншоты
-| Эмоциональная карта | Психическая карта |
+## Screenshots
+/ Emotional map | Mental Map |
 |----------------------|--------------------|
 | <img src="emotion_card.png" width="300"> | <img src="mental_map.png" width="300"> |
 
 
-## Используемые модели
+## Models used
 [speech-emotion-recognition-with-openai-whisper-large-v3](https://huggingface.co/firdhokk/speech-emotion-recognition-with-openai-whisper-large-v3) — классификация эмоций.<br/>
-[bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) — векторное представление текста.
+[bert-base-uncased] (https://huggingface.co/google-bert/bert-base-uncased) — vector representation of the text.
 
-## Возможные ошибки
-- Ошибка при обработке аудио: Убедитесь, что файл не поврежден и соответствует поддерживаемым форматам.
-- Проблемы с зависимостями на Windows: Установите Microsoft Visual C++ Build Tools.
+## Possible errors
+- Error when processing audio: Make sure that the file is not corrupted and corresponds to the supported formats.
+- Dependency issues on Windows: Install Microsoft Visual C++ Build Tools.
 
-## Требования
+## Requirements
 - Python 3.8.10
-- Зависимости:  
+-Dependencies:  
 ```bash
   pip install -r requirements.txt
 ```
 
-## Использование
+## Usage
 ```bash
 git clone https://github.com/leksik-phew/VoiceEmoji.git
 cd VoiceEmoji
@@ -48,4 +48,4 @@ pip install -r requirements.txt
 python main.py
 ```
 
-## Обратная связь: tg @bez_organov
+## Feedback: tg @bez_organov
