@@ -87,17 +87,12 @@ class EmotionAnalyzerApp:
             self.analyze_btn.config(state=DISABLED)
             self.clear_results()
 
-
-            audio = AudioSegment.from_file(self.audio_path)
-            audio = audio.set_channels(1).set_frame_rate(16000)
-            samples = np.array(audio.get_array_of_samples()).astype(np.float32) / (2**15)
-            sr = audio.frame_rate
-
-            segment_length = 10 * sr
+            y, sr = librosa.load(self.audio_path, sr=None)
+            segment_length = 10 * sr  
             segments = [
-                samples[i:i+segment_length]
-                for i in range(0, len(samples), segment_length)
-                if len(samples[i:i+segment_length]) >= segment_length
+                y[i:i+segment_length] 
+                for i in range(0, len(y), segment_length) 
+                if len(y[i:i+segment_length]) >= segment_length
             ]
 
             
@@ -125,7 +120,7 @@ class EmotionAnalyzerApp:
                 self.progress_label.config(text=f"Progress: {percent}%")
                 self.master.update_idletasks()
 
-            
+            print(emotions)
             create(emotions)
             self.show_results()
             

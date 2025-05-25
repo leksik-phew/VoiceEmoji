@@ -1,29 +1,32 @@
 from transformers import pipeline
 from pydub import AudioSegment
-import numpy as np
 import tempfile
 import os
 
+# Явное указание пути к FFmpeg (если нужно)
+# AudioSegment.ffmpeg = "C:/ffmpeg/bin/ffmpeg.exe"
+
 def transcribe_audio(audio_path: str) -> str:
     try:
-        # Конвертация в WAV через pydub
+        # Конвертация в WAV
         audio = AudioSegment.from_file(audio_path)
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmpfile:
             wav_path = tmpfile.name
-            audio.export(wav_path, format="wav")
+            audio.export(wav_path, format="wav", codec="pcm_s16le")  # Явное указание кодека
 
+        # Транскрибация
         transcriber = pipeline(
             task="automatic-speech-recognition",
             model="facebook/wav2vec2-base-960h"
         )
-
         result = transcriber(wav_path)
-        os.unlink(wav_path)
-
+        os.remove(wav_path)
         return result["text"]
 
     except Exception as e:
-        raise RuntimeError(f"Ошибка транскрибации: {str(e)}")
+        if os.path.exists(wav_path):
+            os.remove(wav_path)
+        raise RuntimeError(f"Ошибка: {str(e)}")
 
 def get_psychological_help(text):
     psychologist = pipeline(
@@ -32,27 +35,17 @@ def get_psychological_help(text):
         tokenizer="microsoft/DialoGPT-medium"
     )
     
-    prompt = f"""Ты профессиональный психолог. Ответь на английском языке. 
+    prompt = f"""Ты психолог. Ответь на русском.
     Пользователь: {text}
     Психолог:"""
-
+    
     response = psychologist(
         prompt,
-        max_length=300,
-        min_length=50,
+        max_new_tokens=500,
         do_sample=True,
-        temperature=0.5,  # Контроль креативности
-        top_p=0.9,
-        repetition_penalty=1.2,
+        temperature=0.7,
         truncation=True,
-        num_return_sequences=1,
         pad_token_id=psychologist.tokenizer.eos_token_id
     )
     
-    full_response = response[0]["generated_text"]
-    psychologist_part = full_response.split("Психолог:")[-1].strip()
-    
-    
-    return psychologist_part
-
-print(get_psychological_help("i really love to suck some big black dicks"))
+    return response[0]["generated_text"].split("Психолог:")[-1].strip()
