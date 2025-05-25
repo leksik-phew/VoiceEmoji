@@ -27,6 +27,20 @@
 ## Требования
 - Python 3.8.10
 - Зависимости:  
-  ```bash
+```bash
   pip install -r requirements.txt
 ```
+
+## Использование
+```bash
+git clone https://github.com/leksik-phew/VoiceEmoji.git
+cd VoiceEmoji
+pip install -r requirements.txt
+python main.py
+```
+
+## Поддержка моделей
+- Используемые модели:
+
+[speech-emotion-recognition-with-openai-whisper-large-v3](https://huggingface.co/firdhokk/speech-emotion-recognition-with-openai-whisper-large-v3) — классификация эмоций.<br/>
+[bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) — векторное представление текста.
