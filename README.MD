@@ -3,8 +3,7 @@
 Проект для анализа эмоционального состояния по аудиозаписи и генерации психоэмоциональных карт.  
 **Поддерживаемые форматы**: MP3, OGG, WAV.
 
-<img src="https://img.shields.io/badge/Python-3.8.10-blue" alt="Python Version"> 
-<img alt="Hugging Face" src="https://img.shields.io/badge/hugging-face-yellow?style=plastic">
+<img src="https://img.shields.io/badge/Python-3.8.10-blue" alt="Python Version"> <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging-Face-yellow?style=plastic">
 
 ## Особенности
 - Анализ аудио с использованием модели **Whisper-large-v3** для распознавания эмоций.
