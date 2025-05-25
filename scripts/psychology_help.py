@@ -1,12 +1,29 @@
 from transformers import pipeline
+from pydub import AudioSegment
+import numpy as np
+import tempfile
+import os
 
-def transcribe_audio(audio_path):
-    transcriber = pipeline(
-        task="automatic-speech-recognition",
-        model="facebook/wav2vec2-base-960h"
-    )
-    result = transcriber(audio_path)
-    return result["text"]
+def transcribe_audio(audio_path: str) -> str:
+    try:
+        # Конвертация в WAV через pydub
+        audio = AudioSegment.from_file(audio_path)
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmpfile:
+            wav_path = tmpfile.name
+            audio.export(wav_path, format="wav")
+
+        transcriber = pipeline(
+            task="automatic-speech-recognition",
+            model="facebook/wav2vec2-base-960h"
+        )
+
+        result = transcriber(wav_path)
+        os.unlink(wav_path)
+
+        return result["text"]
+
+    except Exception as e:
+        raise RuntimeError(f"Ошибка транскрибации: {str(e)}")
 
 def get_psychological_help(text):
     psychologist = pipeline(
@@ -15,15 +32,16 @@ def get_psychological_help(text):
         tokenizer="microsoft/DialoGPT-medium"
     )
     
-    prompt = f"""Ты профессиональный психолог. Ответь на русском языке. 
+    prompt = f"""Ты профессиональный психолог. Ответь на английском языке. 
     Пользователь: {text}
     Психолог:"""
-    
+
     response = psychologist(
         prompt,
         max_length=300,
         min_length=50,
-        temperature=0.7,  # Контроль креативности
+        do_sample=True,
+        temperature=0.5,  # Контроль креативности
         top_p=0.9,
         repetition_penalty=1.2,
         truncation=True,
@@ -34,10 +52,6 @@ def get_psychological_help(text):
     full_response = response[0]["generated_text"]
     psychologist_part = full_response.split("Психолог:")[-1].strip()
     
-    # Фильтрация нежелательных фраз
-    unwanted_phrases = ["I'm not a psychologist", "I'm an AI assistant"]
-    for phrase in unwanted_phrases:
-        psychologist_part = psychologist_part.replace(phrase, "")
     
     return psychologist_part
 
