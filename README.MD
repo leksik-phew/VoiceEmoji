@@ -8,7 +8,7 @@ A project for analyzing the emotional state based on audio recordings and genera
 ## Features
 - Audio analysis using the **Whisper-large-v3** model for emotion recognition.
 - Visualization of results:
-- * * Emotional map** (t-SNE) — shows the distribution of emotions in space.
+  - **Emotional map** (t-SNE) — shows the distribution of emotions in space.
   - **Mental Map** (PCA) — displays psychological characteristics.
 - Intuitive graphical interface (GUI) based on Tkinter.
 
