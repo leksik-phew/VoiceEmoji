@@ -10,6 +10,7 @@ import numpy as np
 
 from scripts.voice_analys import predict_emotion as emotion
 from scripts.create_card import create
+from scripts.psychology_help import transcribe_audio, get_psychological_help
 
 class EmotionAnalyzerApp:
     def __init__(self, master):
@@ -96,6 +97,7 @@ class EmotionAnalyzerApp:
             self.progress['value'] = 0
             self.progress_label.config(text="Progress: 0%")
             self.master.update_idletasks()
+            text = transcribe_audio(self.audio_path)
 
             
             emotions = []
@@ -118,6 +120,10 @@ class EmotionAnalyzerApp:
             
             create(emotions)
             self.show_results()
+            
+            answer = get_psychological_help(text)
+            self.show_psychologist_answer(text, answer)
+            
 
         except Exception as e:
             self.show_error(f"Error: {str(e)}")
@@ -177,9 +183,57 @@ class EmotionAnalyzerApp:
     def clear_results(self):
         for widget in self.result_container.winfo_children():
             widget.destroy()
+    
+    def show_psychologist_answer(self, text, answer):
+        for widget in self.result_container.winfo_children():
+            widget.destroy()
+        
+        answer_frame = Frame(self.result_container, bg=self.bg_color)
+        answer_frame.pack(pady=10, fill=BOTH, expand=True)
+        
+        # Отображение распознанного текста
+        Label(
+            answer_frame,
+            text="Распознанный текст:",
+            font=("Arial", 10, "bold"),
+            bg=self.bg_color
+        ).pack(anchor="w")
+        
+        text_box = Text(
+            answer_frame,
+            wrap=WORD,
+            height=4,
+            width=50,
+            font=("Arial", 9),
+            bg="white"
+        )
+        text_box.insert(END, text)
+        text_box.config(state=DISABLED)
+        text_box.pack(fill=BOTH, pady=5)
+        
+        # Отображение рекомендации
+        Label(
+            answer_frame,
+            text="Рекомендация психолога:",
+            font=("Arial", 10, "bold"),
+            bg=self.bg_color
+        ).pack(anchor="w", pady=(10,0))
+        
+        answer_box = Text(
+            answer_frame,
+            wrap=WORD,
+            height=6,
+            width=50,
+            font=("Arial", 9),
+            bg="white"
+        )
+        answer_box.insert(END, answer)
+        answer_box.config(state=DISABLED)
+        answer_box.pack(fill=BOTH, expand=True)
+
 
 if __name__ == "__main__":
     root = Tk()
     app = EmotionAnalyzerApp(root)
-    root.geometry("500x250")
+    root.geometry("500x500") 
     root.mainloop()
