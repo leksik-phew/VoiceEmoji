@@ -27,10 +27,9 @@ A project for analyzing the emotional state based on audio recordings and genera
 ## Screenshots
 | Emotional map | Mental Map | Temporal Chart |
 |----------------------|--------------------|----------------------|
-| <img src="emotion_card.png" width="250"> | <img src="mental_map.png" width="250"> | <img src="temporal_chart.png" width="250"> |
+| <img src="emotion_card.png" width="250"> | <img src="mental_map.png" width="250"> | <img src="umap_map.png" width="250"> |
 | UMAP Map | Heat Map |
-|----------------|----------------|
-| <img src="umap_map.png" width="300"> | <img src="heatmap.png" width="300"> |
+| <img src="temporal_chart.png" width="300"> | <img src="heatmap.png" width="300"> |
 
 
 ## Models used
