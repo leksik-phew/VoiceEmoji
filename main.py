@@ -88,6 +88,8 @@ class EmotionAnalyzerApp:
             self.clear_results()
 
             y, sr = librosa.load(self.audio_path, sr=None)
+            text = transcribe_audio(self.audio_path)
+
             segment_length = 10 * sr  
             segments = [
                 y[i:i+segment_length] 
@@ -95,13 +97,12 @@ class EmotionAnalyzerApp:
                 if len(y[i:i+segment_length]) >= segment_length
             ]
 
+            print(f"Create {len(segments)} segments")
             
             self.progress['maximum'] = len(segments)
             self.progress['value'] = 0
             self.progress_label.config(text="Progress: 0%")
             self.master.update_idletasks()
-            text = transcribe_audio(self.audio_path)
-
             
             emotions = []
             for i, segment in enumerate(segments):
@@ -113,6 +114,8 @@ class EmotionAnalyzerApp:
                 os.unlink(tmp_path) 
                 
                 emotions.append(emotion_result)
+
+                print(f"Segment {i + 1}: {emotion_result}")
                 
                 
                 self.progress['value'] = i + 1
@@ -120,7 +123,7 @@ class EmotionAnalyzerApp:
                 self.progress_label.config(text=f"Progress: {percent}%")
                 self.master.update_idletasks()
 
-            print(emotions)
+            # print(emotions)
             create(emotions)
             self.show_results()
             
@@ -195,7 +198,6 @@ class EmotionAnalyzerApp:
         answer_frame = Frame(self.result_container, bg=self.bg_color)
         answer_frame.pack(pady=10, fill=BOTH, expand=True)
         
-        # Отображение распознанного текста
         Label(
             answer_frame,
             text="Распознанный текст:",
@@ -215,7 +217,6 @@ class EmotionAnalyzerApp:
         text_box.config(state=DISABLED)
         text_box.pack(fill=BOTH, pady=5)
         
-        # Отображение рекомендации
         Label(
             answer_frame,
             text="Рекомендация психолога:",

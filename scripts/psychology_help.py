@@ -3,49 +3,68 @@ from pydub import AudioSegment
 import tempfile
 import os
 
-# Явное указание пути к FFmpeg (если нужно)
-# AudioSegment.ffmpeg = "C:/ffmpeg/bin/ffmpeg.exe"
-
 def transcribe_audio(audio_path: str) -> str:
     try:
-        # Конвертация в WAV
+        print("Transcribing audio: ")
+
         audio = AudioSegment.from_file(audio_path)
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmpfile:
             wav_path = tmpfile.name
-            audio.export(wav_path, format="wav", codec="pcm_s16le")  # Явное указание кодека
+            audio.export(wav_path, format="wav", codec="pcm_s16le")
 
-        # Транскрибация
+        print("Convertation: SUCCESS")
+
         transcriber = pipeline(
             task="automatic-speech-recognition",
-            model="facebook/wav2vec2-base-960h"
+            model="openai/whisper-medium",
+            generate_kwargs={"return_timestamps": True}  
         )
+
+        print("Model initialization: SUCCESS")
+
         result = transcriber(wav_path)
         os.remove(wav_path)
+
+        print("Getting result: SUCCESS")
+
         return result["text"]
 
     except Exception as e:
         if os.path.exists(wav_path):
             os.remove(wav_path)
-        raise RuntimeError(f"Ошибка: {str(e)}")
+        raise RuntimeError(f"Transcribing error: {str(e)}")
 
 def get_psychological_help(text):
-    psychologist = pipeline(
-        task="text-generation",
-        model="microsoft/DialoGPT-medium",
-        tokenizer="microsoft/DialoGPT-medium"
-    )
-    
-    prompt = f"""Ты психолог. Ответь на русском.
-    Пользователь: {text}
-    Психолог:"""
-    
-    response = psychologist(
-        prompt,
-        max_new_tokens=500,
-        do_sample=True,
-        temperature=0.7,
-        truncation=True,
-        pad_token_id=psychologist.tokenizer.eos_token_id
-    )
-    
-    return response[0]["generated_text"].split("Психолог:")[-1].strip()
+    try: 
+        print("Get psychological help: ")
+
+        psychologist = pipeline(
+            task="text-generation",
+            model="microsoft/DialoGPT-medium",
+            tokenizer="microsoft/DialoGPT-medium"
+        )
+
+        print("Model initialization: SUCCESS")
+        
+        prompt = f"""Ты психолог. Ответь на русском.
+        Пользователь: {text}
+        Психолог:"""
+        
+        response = psychologist(
+            prompt,
+            max_new_tokens=8000,
+            do_sample=True,
+            temperature=0.7,
+            truncation=True,
+            pad_token_id=psychologist.tokenizer.eos_token_id
+        )
+
+        print("Getting response: SUCCESS")
+        
+        return response[0]["generated_text"]
+    #.split("Психолог:")[-1].strip()
+    except Exception as e:
+        print(f"Get psychological help error: {e}")
+
+# text = transcribe_audio("temp.ogg")
+# print(get_psychological_help(text))
