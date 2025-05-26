@@ -34,7 +34,9 @@ A project for analyzing the emotional state based on audio recordings and genera
 
 ## Models used
 [speech-emotion-recognition-with-openai-whisper-large-v3](https://huggingface.co/firdhokk/speech-emotion-recognition-with-openai-whisper-large-v3) — classification of emotions.<br/>
-[bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) — vector representation of the text.
+[bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) — vector representation of the text.<br/>
+[whisper-medium](https://huggingface.co/openai/whisper-medium) — transcribing audio.<br/>
+[]() — advice generation.
 
 ## Possible errors
 - Error when processing audio: Make sure that the file is not corrupted and corresponds to the supported formats.
