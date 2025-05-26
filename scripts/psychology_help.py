@@ -46,7 +46,7 @@ def get_psychological_help(text: str) -> str:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            device_map="auto",
+            device_map="cpu",
             torch_dtype=torch.bfloat16
         )
 
