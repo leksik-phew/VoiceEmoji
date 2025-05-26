@@ -25,10 +25,10 @@ A project for analyzing the emotional state based on audio recordings and genera
 - **Heat map** to assess the frequency of emotions.
 
 ## Screenshots
-| Emotional map | Mental Map | Temporal Chart |
+| Emotional map | Mental Map | UMAP Map |
 |----------------------|--------------------|----------------------|
 | <img src="emotion_card.png" width="250"> | <img src="mental_map.png" width="250"> | <img src="umap_map.png" width="250"> |
-| UMAP Map | Heat Map |
+| Temporal Chart | Heat Map |
 | <img src="temporal_chart.png" width="300"> | <img src="heatmap.png" width="300"> |
 
 
