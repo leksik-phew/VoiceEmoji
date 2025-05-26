@@ -1,3 +1,5 @@
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
 from transformers import pipeline
 from pydub import AudioSegment
 import tempfile
@@ -34,37 +36,61 @@ def transcribe_audio(audio_path: str) -> str:
             os.remove(wav_path)
         raise RuntimeError(f"Transcribing error: {str(e)}")
 
-def get_psychological_help(text):
-    try: 
-        print("Get psychological help: ")
-
-        psychologist = pipeline(
-            task="text-generation",
-            model="microsoft/DialoGPT-medium",
-            tokenizer="microsoft/DialoGPT-medium"
+def get_psychological_help(text: str) -> str:
+    return "Would be advice"
+    try:
+        print("Generating psychological advice...")
+        
+        # Используем многоязычную модель OpenChat
+        model_name = "openchat/openchat-3.6-8b-20240522"
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            device_map="auto",
+            torch_dtype=torch.bfloat16
         )
 
-        print("Model initialization: SUCCESS")
+        # Форматирование запроса согласно спецификации модели
+        formatted_text = (
+            "GPT4 Correct User: You are a professional psychologist. "
+            f"Respond in English to this message:<|end_of_turn|>\n"
+            f"Client: {text}<|end_of_turn|>\n"
+            "GPT4 Correct Assistant:"
+        )
         
-        prompt = f"""Ты психолог. Ответь на русском.
-        Пользователь: {text}
-        Психолог:"""
-        
-        response = psychologist(
-            prompt,
-            max_new_tokens=8000,
+        # Токенизация с учетом формата чата
+        inputs = tokenizer(
+            formatted_text,
+            return_tensors="pt",
+            max_length=2048,
+            truncation=True
+        ).to(model.device)
+
+        # Генерация ответа с оптимизированными параметрами
+        outputs = model.generate(
+            **inputs,
+            max_new_tokens=400,
             do_sample=True,
-            temperature=0.7,
-            truncation=True,
-            pad_token_id=psychologist.tokenizer.eos_token_id
+            temperature=0.8,
+            top_p=0.95,
+            repetition_penalty=1.15,
+            num_return_sequences=1,
+            pad_token_id=tokenizer.eos_token_id,
+            eos_token_id=tokenizer.eos_token_id
         )
-
-        print("Getting response: SUCCESS")
         
-        return response[0]["generated_text"]
-    #.split("Психолог:")[-1].strip()
+        # Декодирование и очистка ответа
+        full_response = tokenizer.decode(
+            outputs[0], 
+            skip_special_tokens=True
+        )
+        
+        # Извлекаем только ответ ассистента
+        return full_response.split("GPT4 Correct Assistant:")[-1].strip()
+
     except Exception as e:
-        print(f"Get psychological help error: {e}")
+        print(f"Generation error: {e}")
+        return "Could not generate response. Please rephrase your request."
 
 # text = transcribe_audio("temp.ogg")
 # print(get_psychological_help(text))

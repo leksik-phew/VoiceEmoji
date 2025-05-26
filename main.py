@@ -165,6 +165,30 @@ class EmotionAnalyzerApp:
             self.mental_window.image = img  
             self.center_window(self.mental_window)
 
+            self.temporal_window = Toplevel(self.master)
+            self.temporal_window.title("Temporal chart")
+            img = Image.open("temporal_chart.png")
+            img = ImageTk.PhotoImage(img)
+            Label(self.temporal_window, image=img).pack()
+            self.temporal_window.image = img
+            self.center_window(self.temporal_window)
+            
+            self.umap_window = Toplevel(self.master)
+            self.umap_window.title("UMAP Projection")
+            img = Image.open("umap_map.png")
+            img = ImageTk.PhotoImage(img)
+            Label(self.umap_window, image=img).pack()
+            self.umap_window.image = img
+            self.center_window(self.umap_window)
+            
+            self.heatmap_window = Toplevel(self.master)
+            self.heatmap_window.title("Heatmap")
+            img = Image.open("heatmap.png")
+            img = ImageTk.PhotoImage(img)
+            Label(self.heatmap_window, image=img).pack()
+            self.heatmap_window.image = img
+            self.center_window(self.heatmap_window)
+
         except Exception as e:
             self.show_error(f"Failed to load images: {str(e)}")
 

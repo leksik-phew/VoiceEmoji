@@ -1,9 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.manifold import TSNE
+from umap import UMAP
 from sklearn.decomposition import PCA
 from transformers import BertTokenizer, BertModel
 import torch
+from matplotlib.colors import LinearSegmentedColormap
 
 def generate_emotion_card(emotions, output="emotion_card.png"):
     if len(emotions) < 2:
@@ -96,6 +98,85 @@ def generate_mental_map(emotions, output="mental_map.png"):
     plt.savefig(output, dpi=100)  
     plt.close()
 
+def generate_temporal_emotion_chart(emotions, output="temporal_chart.png"):
+    time_points = np.arange(10, 10 * (len(emotions) + 1), 10)
+    
+    plt.figure(figsize=(10, 4))
+    ax = plt.gca()
+    
+    unique_emotions = list(set(emotions))
+    cmap = plt.get_cmap('tab20', len(unique_emotions))
+    
+    for i, em in enumerate(emotions):
+        color = cmap(unique_emotions.index(em))
+        plt.fill_betweenx(
+            y=[i-0.4, i+0.4],
+            x1=time_points[i]-10,
+            x2=time_points[i],
+            color=color,
+            alpha=0.7
+        )
+    
+    plt.title("The dynamics of emotions over time")
+    plt.xlabel("Time (seconds)", fontsize=10)
+    plt.yticks([])
+    plt.xlim(0, max(time_points))
+    plt.grid(axis='x', alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(output, dpi=100)
+    plt.close()
+
+def generate_umap_projection(emotions, output="umap_map.png"):
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+    model = BertModel.from_pretrained('bert-base-uncased')
+    inputs = tokenizer(emotions, return_tensors="pt", padding=True, truncation=True)
+    with torch.no_grad():
+        outputs = model(**inputs)
+    embeddings = outputs.last_hidden_state[:, 0, :].numpy()
+    
+    reducer = UMAP(n_components=2, random_state=42)
+    coords = reducer.fit_transform(embeddings)
+    
+    plt.figure(figsize=(8, 6))
+    unique_emotions = list(set(emotions))
+    colors = plt.cm.tab20(np.linspace(0, 1, len(unique_emotions)))
+    
+    for i, (x, y) in enumerate(coords):
+        plt.scatter(x, y, c=[colors[unique_emotions.index(emotions[i])]], s=100, edgecolor='w')
+        plt.text(x, y+0.1, emotions[i], ha='center', fontsize=8)
+    
+    plt.title("UMAP Projection of Emotions")
+    plt.axis('off')
+    plt.tight_layout()
+    plt.savefig(output, dpi=100)
+    plt.close()
+
+def generate_heatmap(emotions, output="heatmap.png"):
+    unique_emotions, counts = np.unique(emotions, return_counts=True)
+    intensity = counts / counts.sum()
+    
+    fig, ax = plt.subplots(figsize=(8, 2))
+    cmap = LinearSegmentedColormap.from_list("emotion_cmap", ['#e0f3f8', '#0868ac'])
+    
+    bars = ax.barh(unique_emotions, intensity, color=cmap(intensity))
+    
+    for bar in bars:
+        width = bar.get_width()
+        ax.text(width + 0.01, bar.get_y() + bar.get_height()/2,
+                f'{width:.0%}', ha='left', va='center')
+    
+    plt.title("Intensity of emotions")
+    plt.xlim(0, 1)
+    plt.gca().invert_yaxis()
+    plt.axis('off')
+    plt.tight_layout()
+    plt.savefig(output, dpi=100, bbox_inches='tight')
+    plt.close()
+
+
 def create(emotions):    
     generate_emotion_card(emotions, "emotion_card.png")
     generate_mental_map(emotions, "mental_map.png")
+    generate_temporal_emotion_chart(emotions)    
+    generate_umap_projection(emotions)          
+    generate_heatmap(emotions)
