@@ -79,6 +79,12 @@ A project for analyzing the emotional state based on audio recordings and genera
 ```bash
   pip install -r requirements.txt
 ```
+- Install ffmpeg (for pydub):
+  - ``` sudo apt-get install ffmpeg ``` (Linux)
+  - or via the official website (Windows/Mac)
+- Install python3-tk (for GUI):
+  - ``` sudo apt-get install python3-tk ``` (Linux)
+
 
 ## Usage
 ```bash
