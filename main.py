@@ -55,7 +55,7 @@ class EmotionAnalyzerApp:
         
 
         self.progress_frame = Frame(self.master, bg=self.bg_color)
-        self.progress_frame.pack(pady=5, fill=X)
+        self.progress_frame.pack(pady=5, fill=X, padx=10)
         
         self.progress_label = Label(
             self.progress_frame,
@@ -71,10 +71,17 @@ class EmotionAnalyzerApp:
             length=200,
             mode='determinate'
         )
-        self.progress.pack(side=LEFT, padx=5)
+        self.progress.pack(side=LEFT, padx=5, expand=True, fill=X)
 
-        help_btn = Button(self.master, text="Help", command=self.show_help, bg=self.btn_color, padx=10, pady=5)  
-        help_btn.pack(side=BOTTOM, pady=10)  
+        self.help_btn = Button(
+            self.progress_frame,
+            text="Help",
+            command=self.show_help,
+            bg=self.btn_color,
+            padx=10,
+            pady=2
+        )
+        self.help_btn.pack(side=RIGHT)
 
     def show_help(self):  
         help_window = Toplevel(self.master)  

@@ -50,6 +50,11 @@ A project for analyzing the emotional state based on audio recordings and genera
    - Color gradient: weak (light) to strong (dark)
    - Percentages show emotion share
 
+### Tips
+1. Compare different projections for full picture.
+2. Note clusters and outliers.
+3. Use temporal chart to track changes.
+
 ## Screenshots
 | Emotional map | Mental Map | UMAP Map |
 |----------------------|--------------------|----------------------|

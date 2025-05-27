@@ -6,6 +6,7 @@ import tempfile
 import os
 
 def transcribe_audio(audio_path: str) -> str:
+    return "Would be some text"
     try:
         print("Transcribing audio: ")
 
