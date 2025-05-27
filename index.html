@@ -176,6 +176,407 @@
                 grid-template-columns: 1fr;
             }
         }
+        #gallery .section-description {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 3rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid rgba(139, 0, 0, 0.1);
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(139,0,0,0) 0%, rgba(139,0,0,0.8) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .overlay-content {
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .image-overlay h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .image-overlay p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .gallery-item:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item:hover .overlay-content {
+            transform: translateY(0);
+        }
+
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 2rem;
+        }
+
+        .gallery-nav {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-nav:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery img {
+                height: 200px;
+            }
+        }
+
+        #gallery .section-description {
+            text-align: center;
+            margin: -1rem auto 2.5rem;
+            max-width: 800px;
+            color: #555;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 2.5rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 30px rgba(139, 0, 0, 0.08);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-container {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            background: #f8f8f8;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(139,0,0,0.9) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .overlay-content {
+            transform: translateY(20px);
+            transition: transform 0.3s ease 0.1s;
+            color: white;
+        }
+
+        .image-overlay h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.7rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .image-overlay p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-tags span {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .gallery-item:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item:hover .overlay-content {
+            transform: translateY(0);
+        }
+
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .gallery-nav {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.2);
+        }
+
+        .gallery-nav:hover {
+            background: var(--accent);
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(139, 0, 0, 0.3);
+        }
+
+        .gallery-dots {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(139, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--primary);
+            transform: scale(1.3);
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .image-overlay {
+                padding: 1rem;
+            }
+            
+            .image-overlay h3 {
+                font-size: 1.2rem;
+            }
+        }
+        .image-overlay {
+            background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .overlay-content {
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            margin: 1rem;
+        }
+
+        .image-overlay h3 {
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .image-overlay p {
+            font-size: 1rem;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            animation: zoom 0.3s ease;
+        }
+
+        .close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close:hover {
+            color: var(--accent);
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 30px;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 4px;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0.9)}
+            to {transform: scale(1)}
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100%;
+            width: 100%;
+        }
+
+        .modal-content {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            animation: zoom 0.3s ease;
+            cursor: zoom-out;
+        }
+
+        .modal-content.full-size {
+            max-width: none;
+            max-height: none;
+            cursor: zoom-in;
+        }
+
+        .caption {
+            position: fixed;
+            bottom: 30px;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 4px;
+            max-width: 80%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        @keyframes zoom {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -242,12 +643,108 @@
 
         <section id="gallery" class="section">
             <h2>📊 Visualization Gallery</h2>
+            <p class="section-description">Explore interactive visual representations of emotional patterns derived from voice analysis</p>
+            
             <div class="gallery">
-                <img src="cards/emotion_card.png" alt="Emotion Map">
-                <img src="cards/mental_map.png" alt="Mental Map">
-                <img src="cards/umap_map.png" alt="UMAP Projection">
-                <img src="cards/temporal_chart.png" alt="Temporal Chart">
-                <img src="cards/heatmap.png" alt="Heatmap">
+                <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="cards/emotion_card.png" alt="Emotion Analysis Visualization">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <h3>Emotion Spectrum</h3>
+                                <p>Multidimensional mapping of vocal emotional signatures</p>
+                                <div class="tech-tags">
+                                    <span>t-SNE</span>
+                                    <span>PCA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="cards/mental_map.png" alt="Cognitive State Visualization">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <h3>Cognitive Landscape</h3>
+                                <p>Neural network interpretation of mental states</p>
+                                <div class="tech-tags">
+                                    <span>BERT</span>
+                                    <span>LSTM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="cards/umap_map.png" alt="Dimensionality Reduction Visualization">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <h3>Manifold Projection</h3>
+                                <p>Non-linear dimensionality reduction analysis</p>
+                                <div class="tech-tags">
+                                    <span>UMAP</span>
+                                    <span>Clustering</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="cards/temporal_chart.png" alt="Temporal Emotion Tracking">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <h3>Temporal Dynamics</h3>
+                                <p>Time-series emotion intensity tracking</p>
+                                <div class="tech-tags">
+                                    <span>LSTM</span>
+                                    <span>Attention</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="cards/heatmap.png" alt="Feature Correlation Analysis">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <h3>Feature Correlation</h3>
+                                <p>Acoustic feature importance analysis</p>
+                                <div class="tech-tags">
+                                    <span>Librosa</span>
+                                    <span>SHAP</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-controls">
+                <button class="gallery-nav prev" aria-label="Previous Slide">‹</button>
+                <div class="gallery-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <button class="gallery-nav next" aria-label="Next Slide">›</button>
+            </div>
+
+            <div id="galleryModal" class="modal">
+                <span class="close">&times;</span>
+                <div class="modal-container">
+                    <img class="modal-content" id="modalImage">
+                    <div class="caption"></div>
+                </div>
             </div>
         </section>
 
@@ -308,6 +805,76 @@
                 nav.style.background = 'var(--primary)';
             }
         });
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.gallery-item');
+        const dots = document.querySelectorAll('.dot');
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => updateGallery(index));
+        });
+
+        document.querySelector('.prev').addEventListener('click', () => {
+            updateGallery(currentSlide - 1);
+        });
+
+        document.querySelector('.next').addEventListener('click', () => {
+            updateGallery(currentSlide + 1);
+        });
+
+        function updateGallery(newIndex) {
+            if(newIndex < 0) newIndex = slides.length - 1;
+            if(newIndex >= slides.length) newIndex = 0;
+            
+            currentSlide = newIndex;
+            
+            slides.forEach(slide => slide.style.display = 'none');
+            slides[currentSlide].style.display = 'block';
+            
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentSlide].classList.add('active');
+        }
+
+        const modal = document.getElementById('galleryModal');
+        const modalImg = document.getElementById('modalImage');
+        const captionText = document.querySelector('.caption');
+
+        document.querySelectorAll('.gallery img').forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = 'flex';
+                modalImg.src = this.src;
+                modalImg.className = 'modal-content';
+                captionText.innerHTML = this.alt;
+                
+                const tempImg = new Image();
+                tempImg.src = this.src;
+                tempImg.onload = () => {
+                    modalImg.style.width = `${tempImg.naturalWidth}px`;
+                    modalImg.style.height = `${tempImg.naturalHeight}px`;
+                };
+            });
+        });
+
+        modalImg.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('full-size');
+        });
+
+        document.querySelector('.close').addEventListener('click', closeModal);
+        modal.addEventListener('click', closeModal);
+
+        function closeModal() {
+            modal.style.display = 'none';
+            modalImg.removeAttribute('style');
+        }
+
+        window.addEventListener('resize', () => {
+            if(modal.style.display === 'flex') {
+                modalImg.classList.remove('full-size');
+            }
+        });
+
+        updateGallery(0);
     </script>
 </body>
 </html>
