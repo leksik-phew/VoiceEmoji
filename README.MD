@@ -24,12 +24,38 @@ A project for analyzing the emotional state based on audio recordings and genera
 - **Timeline** with color-coded emotions.
 - **Heat map** to assess the frequency of emotions.
 
+## Some help
+1. Emotion Map (t-SNE)
+ - Visualizes emotional patterns in 2D space:
+   - Close points: similar emotional states
+   - Colors: different emotion categories
+   - Use legend for identification
+2. Mental Map (PCA)
+ - Shows principal components of emotional data:
+   - X-axis: Primary variation pattern
+   - Y-axis: Secondary variation pattern
+   - Labels show dominant segment emotion
+3. Temporal Chart
+ - Displays emotion dynamics over time:
+   - Band width: segment duration (10 sec)
+   - Color: current emotion
+   - Vertical axis: sequence of segments
+4. UMAP Projection
+ - Alternative multidimensional visualization:
+   - Preserves both global and local structure
+   - Clusters: emotionally similar groups
+5. Heatmap
+ - Shows emotion intensity:
+   - Bar length: relative frequency
+   - Color gradient: weak (light) to strong (dark)
+   - Percentages show emotion share
+
 ## Screenshots
 | Emotional map | Mental Map | UMAP Map |
 |----------------------|--------------------|----------------------|
-| <img src="emotion_card.png" width="250"> | <img src="mental_map.png" width="250"> | <img src="umap_map.png" width="250"> |
+| <img src="cards/emotion_card.png" width="250"> | <img src="cards/mental_map.png" width="250"> | <img src="cards/umap_map.png" width="250"> |
 | Temporal Chart | Heat Map |
-| <img src="temporal_chart.png" width="300"> | <img src="heatmap.png" width="300"> |
+| <img src="cards/temporal_chart.png" width="300"> | <img src="cards/heatmap.png" width="300"> |
 
 
 ## Models used

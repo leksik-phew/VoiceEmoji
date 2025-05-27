@@ -6,8 +6,9 @@ from sklearn.decomposition import PCA
 from transformers import BertTokenizer, BertModel
 import torch
 from matplotlib.colors import LinearSegmentedColormap
+import os
 
-def generate_emotion_card(emotions, output="emotion_card.png"):
+def generate_emotion_card(emotions, output="cards/emotion_card.png"):
     if len(emotions) < 2:
         raise ValueError("At least 2 emotions required for analysis")
     
@@ -57,7 +58,7 @@ def generate_emotion_card(emotions, output="emotion_card.png"):
     plt.savefig(output, bbox_inches='tight', dpi=100) 
     plt.close()
 
-def generate_mental_map(emotions, output="mental_map.png"):
+def generate_mental_map(emotions, output="cards/mental_map.png"):
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
     model = BertModel.from_pretrained('bert-base-uncased')
     inputs = tokenizer(emotions, return_tensors="pt", padding=True, truncation=True)
@@ -98,7 +99,7 @@ def generate_mental_map(emotions, output="mental_map.png"):
     plt.savefig(output, dpi=100)  
     plt.close()
 
-def generate_temporal_emotion_chart(emotions, output="temporal_chart.png"):
+def generate_temporal_emotion_chart(emotions, output="cards/temporal_chart.png"):
     time_points = np.arange(10, 10 * (len(emotions) + 1), 10)
     
     plt.figure(figsize=(10, 4))
@@ -126,7 +127,7 @@ def generate_temporal_emotion_chart(emotions, output="temporal_chart.png"):
     plt.savefig(output, dpi=100)
     plt.close()
 
-def generate_umap_projection(emotions, output="umap_map.png"):
+def generate_umap_projection(emotions, output="cards/umap_map.png"):
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
     model = BertModel.from_pretrained('bert-base-uncased')
     inputs = tokenizer(emotions, return_tensors="pt", padding=True, truncation=True)
@@ -151,7 +152,7 @@ def generate_umap_projection(emotions, output="umap_map.png"):
     plt.savefig(output, dpi=100)
     plt.close()
 
-def generate_heatmap(emotions, output="heatmap.png"):
+def generate_heatmap(emotions, output="cards/heatmap.png"):
     unique_emotions, counts = np.unique(emotions, return_counts=True)
     intensity = counts / counts.sum()
     
@@ -175,8 +176,9 @@ def generate_heatmap(emotions, output="heatmap.png"):
 
 
 def create(emotions):    
-    generate_emotion_card(emotions, "emotion_card.png")
-    generate_mental_map(emotions, "mental_map.png")
-    generate_temporal_emotion_chart(emotions)    
-    generate_umap_projection(emotions)          
-    generate_heatmap(emotions)
+    os.makedirs("cards", exist_ok=True)  
+    generate_emotion_card(emotions, "cards/emotion_card.png")
+    generate_mental_map(emotions, "cards/mental_map.png")
+    generate_temporal_emotion_chart(emotions, "cards/temporal_chart.png")    
+    generate_umap_projection(emotions, "cards/umap_map.png")          
+    generate_heatmap(emotions, "cards/heatmap.png")

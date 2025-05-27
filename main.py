@@ -12,6 +12,7 @@ import numpy as np
 from scripts.voice_analys import predict_emotion as emotion
 from scripts.create_card import create
 from scripts.psychology_help import transcribe_audio, get_psychological_help
+from scripts.help import show_help
 
 class EmotionAnalyzerApp:
     def __init__(self, master):
@@ -71,6 +72,31 @@ class EmotionAnalyzerApp:
             mode='determinate'
         )
         self.progress.pack(side=LEFT, padx=5)
+
+        help_btn = Button(self.master, text="Help", command=self.show_help, bg=self.btn_color, padx=10, pady=5)  
+        help_btn.pack(side=BOTTOM, pady=10)  
+
+    def show_help(self):  
+        help_window = Toplevel(self.master)  
+        help_window.title("Справка / Help")  
+        notebook = ttk.Notebook(help_window)  
+        notebook.pack(fill=BOTH, expand=True)  
+        ru_frame = Frame(notebook, bg=self.bg_color)  
+        self.populate_help(ru_frame, "ru")  
+        notebook.add(ru_frame, text="Русский")  
+        en_frame = Frame(notebook, bg=self.bg_color)  
+        self.populate_help(en_frame, "en")  
+        notebook.add(en_frame, text="English") 
+
+    def populate_help(self, parent, lang):  
+        content = show_help(lang)  
+        Label(parent, text=content["title"], font=("Arial", 12, "bold"), bg=self.bg_color).pack(pady=10)  
+        for section in content["sections"]:  
+            frame = Frame(parent, bg=self.bg_color)  
+            frame.pack(fill=X, padx=10, pady=5)  
+            Label(frame, text=section["title"], font=("Arial", 10, "bold"), bg=self.bg_color, anchor="w").pack(fill=X)  
+            Label(frame, text=section["content"], justify=LEFT, bg=self.bg_color, wraplength=400).pack(fill=X)  
+        Label(parent, text=content["tips"], font=("Arial", 10), bg=self.bg_color, wraplength=400).pack(pady=10)  
 
     def load_file(self):
         filetypes = (("Audio files", "*.wav *.mp3 *.ogg"),)
@@ -150,7 +176,7 @@ class EmotionAnalyzerApp:
             
             self.emotion_window = Toplevel(self.master)
             self.emotion_window.title("Emotion Card")
-            img = Image.open("emotion_card.png")
+            img = Image.open("cards/emotion_card.png")
             img = ImageTk.PhotoImage(img)
             Label(self.emotion_window, image=img).pack()
             self.emotion_window.image = img  
@@ -159,7 +185,7 @@ class EmotionAnalyzerApp:
             
             self.mental_window = Toplevel(self.master)
             self.mental_window.title("Mental Map")
-            img = Image.open("mental_map.png")
+            img = Image.open("cards/mental_map.png")
             img = ImageTk.PhotoImage(img)
             Label(self.mental_window, image=img).pack()
             self.mental_window.image = img  
@@ -167,7 +193,7 @@ class EmotionAnalyzerApp:
 
             self.temporal_window = Toplevel(self.master)
             self.temporal_window.title("Temporal chart")
-            img = Image.open("temporal_chart.png")
+            img = Image.open("cards/temporal_chart.png")
             img = ImageTk.PhotoImage(img)
             Label(self.temporal_window, image=img).pack()
             self.temporal_window.image = img
@@ -175,7 +201,7 @@ class EmotionAnalyzerApp:
             
             self.umap_window = Toplevel(self.master)
             self.umap_window.title("UMAP Projection")
-            img = Image.open("umap_map.png")
+            img = Image.open("cards/umap_map.png")
             img = ImageTk.PhotoImage(img)
             Label(self.umap_window, image=img).pack()
             self.umap_window.image = img
@@ -183,7 +209,7 @@ class EmotionAnalyzerApp:
             
             self.heatmap_window = Toplevel(self.master)
             self.heatmap_window.title("Heatmap")
-            img = Image.open("heatmap.png")
+            img = Image.open("cards/heatmap.png")
             img = ImageTk.PhotoImage(img)
             Label(self.heatmap_window, image=img).pack()
             self.heatmap_window.image = img
