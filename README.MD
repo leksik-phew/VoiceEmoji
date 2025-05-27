@@ -1,7 +1,7 @@
 # VoiceEmoji
 
 A project for analyzing the emotional state based on audio recordings and generating psycho-emotional maps. <br/>
-Visit our [website](https://leksik-phew.github.io/VoiceEmoji)
+Visit our [website](https://leksik-phew.github.io/VoiceEmoji) <br/>
 **Supported formats**: MP3, OGG, WAV.
 
 <img src="https://img.shields.io/badge/Python-3.8.10-blue" alt="Python Version"> <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging-Face-yellow?style=plastic"> <img alt="UMAP" src="https://img.shields.io/badge/UMAP-0.5.3-red">
