@@ -6,9 +6,10 @@
     <title>VoiceEmoji - Emotion Analysis through Speech</title>
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --background: #f8f9fa;
+            --primary: #8B0000;
+            --secondary: #FF0000;
+            --accent: #FF4500;
+            --background: #FFF5F5;
         }
 
         * {
@@ -24,18 +25,53 @@
             color: #333;
         }
 
+        .nav-container {
+            background: var(--primary);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            margin-top: 80px;
         }
 
         header {
-            background: var(--primary);
+            background: linear-gradient(rgba(139,0,0,0.9), rgba(139,0,0,0.8)),
+                        url('images/wave-bg.png');
             color: white;
-            padding: 4rem 0;
+            padding: 6rem 0;
             text-align: center;
             margin-bottom: 2rem;
+            border-radius: 0 0 30px 30px;
         }
 
         .badges {
@@ -66,25 +102,37 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            border: 2px solid var(--primary);
         }
 
         .gallery img:hover {
-            transform: translateY(-5px);
+            transform: scale(1.03);
         }
 
         .section {
             background: white;
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: 15px;
             margin: 2rem 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
         }
 
         h2 {
             color: var(--primary);
             margin-bottom: 1.5rem;
-            border-bottom: 3px solid var(--secondary);
             padding-bottom: 0.5rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
         }
 
         .features {
@@ -95,9 +143,14 @@
 
         .feature-card {
             padding: 1.5rem;
-            background: #f8f9fa;
+            background: #FFFAFA;
             border-radius: 8px;
-            border-left: 4px solid var(--secondary);
+            border: 2px solid var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
         }
 
         footer {
@@ -109,10 +162,16 @@
         }
 
         @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
             .container {
                 padding: 10px;
             }
-            
+
             .gallery {
                 grid-template-columns: 1fr;
             }
@@ -120,14 +179,25 @@
     </style>
 </head>
 <body>
+    <div class="nav-container">
+        <nav>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#tech-stack">Tech Stack</a></li>
+            </ul>
+        </nav>
+    </div>
+
     <header>
         <div class="container">
             <h1>VoiceEmoji</h1>
-            <p>AI-powered speech emotion analysis and psycho-emotional mapping</p>
+            <p>Decode emotions through voice analysis with AI-powered insights</p>
             <div class="badges">
-                <span class="badge">Python 3.8</span>
-                <span class="badge">Hugging Face</span>
-                <span class="badge">Machine Learning</span>
+                <span class="badge">Emotion Recognition</span>
+                <span class="badge">AI Visualization</span>
+                <span class="badge">Speech Analysis</span>
             </div>
         </div>
     </header>
@@ -218,5 +288,26 @@
             <p>👩💻 Open source on GitHub</p>
         </div>
     </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav-container');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(139, 0, 0, 0.95)';
+            } else {
+                nav.style.background = 'var(--primary)';
+            }
+        });
+    </script>
 </body>
 </html>
