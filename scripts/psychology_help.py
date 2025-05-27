@@ -5,8 +5,9 @@ from pydub import AudioSegment
 import tempfile
 import os
 
-def transcribe_audio(audio_path: str) -> str:
-    return "Would be some text"
+
+def transcribe_audio(audio_path: str, flag=False) -> str:
+    if flag: return "Would be some text"
     try:
         print("Transcribing audio: ")
 
@@ -37,21 +38,28 @@ def transcribe_audio(audio_path: str) -> str:
             os.remove(wav_path)
         raise RuntimeError(f"Transcribing error: {str(e)}")
 
+# model_name = "openchat/openchat-3.6-8b-20240522"
+# tokenizer = AutoTokenizer.from_pretrained(model_name)
+# model = None
+
+# # Инициализируем модель при первом вызове
+# def init_model():
+#     global model
+#     if model is None:
+#         model = AutoModelForCausalLM.from_pretrained(
+#             model_name,
+#             device_map="cpu",  # Автоматический выбор GPU/CPU
+#             torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+#             low_cpu_mem_usage=True
+#         ).eval()
+#         print("Model loaded on device:", model.device)
+
+# init_model()  # Предзагрузка модели
+
 def get_psychological_help(text: str) -> str:
     return "Would be advice"
     try:
-        print("Generating psychological advice...")
-        
-        # Используем многоязычную модель OpenChat
-        model_name = "openchat/openchat-3.6-8b-20240522"
-        tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            device_map="cpu",
-            torch_dtype=torch.bfloat16
-        )
-
-        # Форматирование запроса согласно спецификации модели
+        # Форматирование промпта
         formatted_text = (
             "GPT4 Correct User: You are a professional psychologist. "
             f"Respond in English to this message:<|end_of_turn|>\n"
@@ -59,39 +67,40 @@ def get_psychological_help(text: str) -> str:
             "GPT4 Correct Assistant:"
         )
         
-        # Токенизация с учетом формата чата
+        # Токенизация
         inputs = tokenizer(
             formatted_text,
             return_tensors="pt",
-            max_length=2048,
+            max_length=1024,
             truncation=True
         ).to(model.device)
 
-        # Генерация ответа с оптимизированными параметрами
-        outputs = model.generate(
-            **inputs,
-            max_new_tokens=400,
-            do_sample=True,
-            temperature=0.8,
-            top_p=0.95,
-            repetition_penalty=1.15,
-            num_return_sequences=1,
-            pad_token_id=tokenizer.eos_token_id,
-            eos_token_id=tokenizer.eos_token_id
-        )
+        # Генерация с оптимизированными параметрами
+        with torch.no_grad():  # Отключаем вычисление градиентов
+            outputs = model.generate(
+                **inputs,
+                max_new_tokens=200,  # Уменьшили длину ответа
+                do_sample=True,
+                temperature=0.7,     # Более детерминированные ответы
+                top_k=50,
+                top_p=0.9,
+                repetition_penalty=1.1,
+                num_return_sequences=1,
+                pad_token_id=tokenizer.eos_token_id,
+                eos_token_id=tokenizer.eos_token_id
+            )
         
-        # Декодирование и очистка ответа
+        # Декодирование ответа
         full_response = tokenizer.decode(
             outputs[0], 
             skip_special_tokens=True
         )
-        
-        # Извлекаем только ответ ассистента
+
         return full_response.split("GPT4 Correct Assistant:")[-1].strip()
 
     except Exception as e:
-        print(f"Generation error: {e}")
-        return "Could not generate response. Please rephrase your request."
+        print(f"Error: {e}")
+        return "Could not generate response. Please try again."
 
-# text = transcribe_audio("temp.ogg")
+# text = transcribe_audio("temp.ogg", True)
 # print(get_psychological_help(text))
