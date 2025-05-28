@@ -27,19 +27,22 @@ class EmotionAnalyzerApp:
         self.create_widgets()
 
     def create_widgets(self):
+        button_frame = Frame(self.master, bg=self.bg_color)
+        button_frame.pack(pady=10)
+
         self.load_btn = Button(
-            self.master,
+            button_frame,
             text="Upload Audio",
             command=self.load_file,
             bg=self.btn_color,
             padx=10,
             pady=5
         )
-        self.load_btn.pack(pady=10)
+        self.load_btn.pack(side=LEFT, padx=5)
         
         
         self.analyze_btn = Button(
-            self.master,
+            button_frame,
             text="Analyze",
             command=self.analyze_emotion,
             bg=self.btn_color,
@@ -47,7 +50,7 @@ class EmotionAnalyzerApp:
             pady=5,
             state=DISABLED
         )
-        self.analyze_btn.pack(pady=5)
+        self.analyze_btn.pack(side=LEFT, padx=5)
         
         
         self.result_container = Frame(self.master, bg=self.bg_color)
