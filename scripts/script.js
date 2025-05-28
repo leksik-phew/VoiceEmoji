@@ -1,4 +1,3 @@
-// Smooth scroll для якорных ссылок
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -9,53 +8,51 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Динамический фон навигации
 window.addEventListener('scroll', function() {
     const nav = document.querySelector('.nav-container');
-    nav.style.background = window.scrollY > 100 
-        ? 'rgba(139, 0, 0, 0.95)' 
-        : 'var(--primary)';
+    if (nav) {
+        nav.style.background = window.scrollY > 100 
+            ? 'rgba(139, 0, 0, 0.95)' 
+            : 'var(--primary)';
+    }
 });
 
-// Модальное окно
-const modal = document.getElementById('galleryModal');
-const modalImg = document.getElementById('modalImage');
-const captionText = document.querySelector('.caption');
+const overlay = document.querySelector('.image-overlay');
+const galleryItems = document.querySelectorAll('.gallery-item');
 
-document.querySelectorAll('.gallery img').forEach(img => {
-    img.addEventListener('click', function(e) {
-        const imgRect = this.getBoundingClientRect();
+galleryItems.forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        const title = this.querySelector('img').alt;
+        const overlayContent = overlay.querySelector('.overlay-content');
+        overlayContent.querySelector('h3').textContent = title;
         
-        // Позиционирование модалки
-        modal.style.display = 'block';
-        modal.style.position = 'absolute';
-        modal.style.left = `${imgRect.right + 20}px`;
-        modal.style.top = `${imgRect.top}px`;
-
-        // Контент
-        modalImg.src = this.src;
-        captionText.innerHTML = this.alt;
-
-        // Адаптация для мобилок
-        if(window.innerWidth <= 768) {
-            modal.style.left = '10px';
-            modal.style.right = '10px';
-            modal.style.top = 'auto';
-            modal.style.bottom = '20px';
+        switch(title) {
+            case 'Emotion Analysis Visualization':
+                overlayContent.querySelector('p').textContent = 'Multidimensional mapping of vocal emotional signatures';
+                overlayContent.querySelector('.tech-tags').innerHTML = '<span>t-SNE</span><span>PCA</span>';
+                break;
+            case 'Cognitive State Visualization':
+                overlayContent.querySelector('p').textContent = 'Neural network interpretation of mental states';
+                overlayContent.querySelector('.tech-tags').innerHTML = '<span>BERT</span><span>LSTM</span>';
+                break;
+            case 'Dimensionality Reduction Visualization':
+                overlayContent.querySelector('p').textContent = 'Non-linear dimensionality reduction analysis';
+                overlayContent.querySelector('.tech-tags').innerHTML = '<span>UMAP</span><span>Clustering</span>';
+                break;
+            case 'Temporal Emotion Tracking':
+                overlayContent.querySelector('p').textContent = 'Time-series emotion intensity tracking';
+                overlayContent.querySelector('.tech-tags').innerHTML = '<span>LSTM</span><span>Attention</span>';
+                break;
+            case 'Feature Correlation Analysis':
+                overlayContent.querySelector('p').textContent = 'Acoustic feature importance analysis';
+                overlayContent.querySelector('.tech-tags').innerHTML = '<span>Librosa</span><span>SHAP</span>';
+                break;
         }
+        
+        overlay.style.display = 'block';
+    });
+
+    item.addEventListener('mouseleave', function() {
+        overlay.style.display = 'none';
     });
 });
-
-// Закрытие модалки
-document.querySelector('.close').addEventListener('click', closeModal);
-document.addEventListener('click', function(e) {
-    if(!modal.contains(e.target)) closeModal();
-});
-
-function closeModal() {
-    modal.style.display = 'none';
-}
-
-// Ресайз и скролл
-window.addEventListener('resize', closeModal);
-window.addEventListener('scroll', closeModal);

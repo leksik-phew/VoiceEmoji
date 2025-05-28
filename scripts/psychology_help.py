@@ -104,3 +104,9 @@ def get_psychological_help(text: str) -> str:
 
 # text = transcribe_audio("temp.ogg", True)
 # print(get_psychological_help(text))
+
+# from ollama_api import OllamaClient
+
+# client = OllamaClient()
+# response = client.generate_completion(model="deepseek-r1:1.5b", prompt="Why is the sky blue?")
+# print(response)
