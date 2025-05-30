@@ -12,8 +12,8 @@ window.addEventListener('scroll', function() {
     const nav = document.querySelector('.nav-container');
     if (nav) {
         nav.style.background = window.scrollY > 100 
-            ? 'rgba(139, 0, 0, 0.95)' 
-            : 'var(--primary)';
+            ? 'var(--light)' 
+            : 'var(--light)';
     }
 });
 
@@ -24,13 +24,19 @@ overlay.style.display = 'none';
 galleryItems.forEach(item => {
     const img = item.querySelector('img');
     
-    item.addEventListener('mouseenter', function() {
+    item.addEventListener('mouseenter', function(e) {
+        const rect = item.getBoundingClientRect();
         const title = img.alt;
+        
         const overlayContent = overlay.querySelector('.overlay-content');
         overlayContent.querySelector('h3').textContent = getTitle(title);
         overlayContent.querySelector('p').textContent = getDescription(title);
         overlayContent.querySelector('.tech-tags').innerHTML = getTechTags(title);
+        
         overlay.style.display = 'block';
+        overlay.style.bottom = '20px';
+        overlay.style.left = '50%';
+        overlay.style.transform = 'translateX(-50%)';
     });
 
     item.addEventListener('mouseleave', function() {
@@ -70,3 +76,21 @@ function getTechTags(alt) {
     };
     return tags[alt] || '';
 }
+
+galleryItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+        if (window.innerWidth > 768) return;
+        
+        const img = item.querySelector('img');
+        const title = img.alt;
+        
+        const overlayContent = overlay.querySelector('.overlay-content');
+        overlayContent.querySelector('h3').textContent = getTitle(title);
+        overlayContent.querySelector('p').textContent = getDescription(title);
+        overlayContent.querySelector('.tech-tags').innerHTML = getTechTags(title);
+        
+        overlay.style.display = overlay.style.display === 'block' 
+            ? 'none' 
+            : 'block';
+    });
+});
